@@ -5,77 +5,91 @@ function createSection(index, sectionTitle, contentText) {
   const accordionItem = document.createElement('div');
   accordionItem.classList.add('accordion-item');
   
-  const button = document.createElement('button');
-  button.classList.add('accordion-button');
-  button.innerHTML = `<input type="checkbox" class="section-checkbox"> ${sectionTitle}`;
+  // Создаем контейнер для чекбокса и названия
+  const checkboxWrapper = document.createElement('div');
+  checkboxWrapper.classList.add('checkbox-wrapper');
+  
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('section-checkbox');
+  
+  const sectionName = document.createElement('span');
+  sectionName.classList.add('section-name');
+  sectionName.innerText = sectionTitle;
+  
+  checkboxWrapper.appendChild(checkbox);
+  checkboxWrapper.appendChild(sectionName);
   
   const content = document.createElement('div');
   content.classList.add('accordion-content');
   content.innerHTML = `<p>${contentText}</p>`;
   
-  accordionItem.appendChild(button);
+  accordionItem.appendChild(checkboxWrapper);
   accordionItem.appendChild(content);
   
   return accordionItem;
 }
 
-// Пример названий и текстов для каждой секции
+// Пример секций с названиями и контентом
 const sections = [
-  { title: 'Section 1: Introduction', content: 'This is the content of section 1.' },
-  { title: 'Section 2: Overview', content: 'This is the content of section 2.' },
+  { title: 'Що таке інтернет та як він працює?', content: 'Інтернет це глобальна мережа в якій всі пристрої з\'єднані між собою та мають свій унікальний ідентифікатор IP, та за допомогою протоколів ці пристрої можуть обмінюватись даними' },
+  { title: 'З чого складається URI?', content:'<ol>' +
+             '<li>Протокол передачі даних https://</li>' +
+             '<li>subdomain.domain.root_domain</li>' +
+             '<li>port (http-80, https-443), але він не показується за замовченням</li>' +
+             '<li>path - путь до конкретної сторінки або файлу на сайті</li>' +
+             '<li>query param - фільтри, сортування, доп. параметри</li>' +
+             '<li>anchor - якір, для переходу до певної частини сторінки</li>' +
+             '</ol>' },
   { title: 'Section 3: Features', content: 'This is the content of section 3.' },
   { title: 'Section 4: Details', content: 'Content for section 4.' },
   { title: 'Section 5: Final thoughts', content: 'Unique information for section 5.' },
-  // Добавьте сюда столько объектов, сколько нужно
+  { title: 'Section 6: Further Analysis', content: 'Deep dive into section 6.' },
+  { title: 'Section 7: Discussion', content: 'Content for section 7.' },
+  { title: 'Section 8: Questions', content: 'Content for section 8.' },
+  { title: 'Section 9: Answers', content: 'Content for section 9.' },
   { title: 'Section 10: Conclusion', content: 'Content for section 10.' },
 ];
 
-// Динамическое создание секций с уникальными названиями и текстами
-for (let i = 0; i < 10; i++) {
-  const sectionData = sections[i] || { title: `Section ${i + 1}`, content: `Content of section ${i + 1}` };
-  const section = createSection(i, sectionData.title, sectionData.content);
+// Динамически создаем секции
+sections.forEach((sectionData, index) => {
+  const section = createSection(index, sectionData.title, sectionData.content);
   accordionContainer.appendChild(section);
-}
+});
 
-// Обработчики событий для чекбоксов и кнопок
-const buttons = document.querySelectorAll('.accordion-button');
+// Обработчики для чекбоксов и кнопок
 const checkboxes = document.querySelectorAll('.section-checkbox');
+const sectionNames = document.querySelectorAll('.section-name');
+const accordionContents = document.querySelectorAll('.accordion-content');
 
+// Обработчик для чекбоксов
 checkboxes.forEach((checkbox, index) => {
   checkbox.addEventListener('change', () => {
-    const button = buttons[index];
-    const content = button.nextElementSibling;
+    const sectionName = sectionNames[index];
+    const content = accordionContents[index];
 
-    // Если чекбокс отмечен, зачеркиваем название секции
+    // Зачеркиваем название секции, если чекбокс отмечен
     if (checkbox.checked) {
-      button.classList.add('strikethrough');
-      
-      // Если секция открыта, закрываем её
-      if (content.classList.contains('show')) {
-        content.classList.remove('show');
-      }
+      sectionName.classList.add('strikethrough');
     } else {
-      button.classList.remove('strikethrough');
+      sectionName.classList.remove('strikethrough');
     }
 
-    // При снятии галочки не меняем состояние секции, кроме как закрытия
-    if (!checkbox.checked) {
-      content.classList.remove('show');
-    }
+    // Закрываем секцию при снятии чекбокса
+    content.classList.remove('show');
   });
 });
 
-buttons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    const checkbox = button.querySelector('.section-checkbox');
-    const content = button.nextElementSibling;
+// Обработчик для нажатия на название секции
+sectionNames.forEach((sectionName, index) => {
+  sectionName.addEventListener('click', () => {
+    const checkbox = checkboxes[index];
+    const content = accordionContents[index];
 
-    // Если чекбокс установлен, не выполняем никаких действий
-    if (checkbox.checked) {
-      return; // Просто выходим из обработчика
-    }
+    // Если чекбокс установлен, не открываем секцию
+    if (checkbox.checked) return;
 
-    // Иначе, переключаем видимость секции
+    // Переключаем видимость контента
     content.classList.toggle('show');
   });
 });
