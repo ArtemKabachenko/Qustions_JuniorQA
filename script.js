@@ -33,14 +33,7 @@ function createSection(index, sectionTitle, contentText) {
 // Пример секций с названиями и контентом
 const sections = [
   { title: 'Що таке інтернет та як він працює?', content: 'Інтернет це глобальна мережа в якій всі пристрої з\'єднані між собою та мають свій унікальний ідентифікатор IP, та за допомогою протоколів ці пристрої можуть обмінюватись даними' },
-  { title: 'З чого складається URI?', content:'<ol>' +
-             '<li>Протокол передачі даних https://</li>' +
-             '<li>subdomain.domain.root_domain</li>' +
-             '<li>port (http-80, https-443), але він не показується за замовченням</li>' +
-             '<li>path - путь до конкретної сторінки або файлу на сайті</li>' +
-             '<li>query param - фільтри, сортування, доп. параметри</li>' +
-             '<li>anchor - якір, для переходу до певної частини сторінки</li>' +
-             '</ol>' },
+  { title: 'З чого складається URI?', content:'<ol>' + '<li>Протокол передачі даних https://</li>' + '<li>subdomain.domain.root_domain</li>' + '<li>port (http-80, https-443), але він не показується за замовченням</li>' + '<li>path - путь до конкретної сторінки або файлу на сайті</li>' + '<li>query param - фільтри, сортування, доп. параметри</li>' + '<li>anchor - якір, для переходу до певної частини сторінки</li>' + '</ol>' },
   { title: 'Section 3: Features', content: 'This is the content of section 3.' },
   { title: 'Section 4: Details', content: 'Content for section 4.' },
   { title: 'Section 5: Final thoughts', content: 'Unique information for section 5.' },
