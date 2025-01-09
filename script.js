@@ -1,3 +1,43 @@
+const accordionContainer = document.getElementById('accordion');
+
+// Функция для создания секции с уникальным названием и текстом
+function createSection(index, sectionTitle, contentText) {
+  const accordionItem = document.createElement('div');
+  accordionItem.classList.add('accordion-item');
+  
+  const button = document.createElement('button');
+  button.classList.add('accordion-button');
+  button.innerHTML = `<input type="checkbox" class="section-checkbox"> ${sectionTitle}`;
+  
+  const content = document.createElement('div');
+  content.classList.add('accordion-content');
+  content.innerHTML = `<p>${contentText}</p>`;
+  
+  accordionItem.appendChild(button);
+  accordionItem.appendChild(content);
+  
+  return accordionItem;
+}
+
+// Пример названий и текстов для каждой секции
+const sections = [
+  { title: 'Section 1: Introduction', content: 'This is the content of section 1.' },
+  { title: 'Section 2: Overview', content: 'This is the content of section 2.' },
+  { title: 'Section 3: Features', content: 'This is the content of section 3.' },
+  { title: 'Section 4: Details', content: 'Content for section 4.' },
+  { title: 'Section 5: Final thoughts', content: 'Unique information for section 5.' },
+  // Добавьте сюда столько объектов, сколько нужно
+  { title: 'Section 10: Conclusion', content: 'Content for section 10.' },
+];
+
+// Динамическое создание секций с уникальными названиями и текстами
+for (let i = 0; i < 10; i++) {
+  const sectionData = sections[i] || { title: `Section ${i + 1}`, content: `Content of section ${i + 1}` };
+  const section = createSection(i, sectionData.title, sectionData.content);
+  accordionContainer.appendChild(section);
+}
+
+// Обработчики событий для чекбоксов и кнопок
 const buttons = document.querySelectorAll('.accordion-button');
 const checkboxes = document.querySelectorAll('.section-checkbox');
 
@@ -6,7 +46,7 @@ checkboxes.forEach((checkbox, index) => {
     const button = buttons[index];
     const content = button.nextElementSibling;
 
-    // If the checkbox is checked, cross out the section name
+    // Если чекбокс отмечен, зачеркиваем название секции
     if (checkbox.checked) {
       button.classList.add('strikethrough');
       
@@ -18,7 +58,7 @@ checkboxes.forEach((checkbox, index) => {
       button.classList.remove('strikethrough');
     }
 
-    // Unchecking the checkbox does not change the state of the section other than closing it
+    // При снятии галочки не меняем состояние секции, кроме как закрытия
     if (!checkbox.checked) {
       content.classList.remove('show');
     }
@@ -30,12 +70,12 @@ buttons.forEach(button => {
     const checkbox = button.querySelector('.section-checkbox');
     const content = button.nextElementSibling;
 
-    // If the checkbox is checked, do not perform any actions
+    // Если чекбокс установлен, не выполняем никаких действий
     if (checkbox.checked) {
-      return; // Just exit the handler
+      return; // Просто выходим из обработчика
     }
 
-    // Otherwise, we switch the section's visibility
+    // Иначе, переключаем видимость секции
     content.classList.toggle('show');
   });
 });

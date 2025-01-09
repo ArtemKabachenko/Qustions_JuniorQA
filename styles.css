@@ -1,45 +1,128 @@
+
+/* Стили для заголовка в header */
+header {
+  background-color: #654f96; /* Зеленый фон */
+  color: white; /* Белый цвет текста */
+  padding: 20px; /* Отступы внутри header */
+  text-align: center; /* Выравнивание текста по центру */
+  border-radius: 10px; /* Скругление углов */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для выделения */
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Стили для заголовка h1 внутри header */
+header h1 {
+  font-size: 26px; /* Размер шрифта */
+  font-family: 'Nunito Sans', sans-serif; /* Шрифт */
+  font-weight: bold; /* Полужирный шрифт */
+  letter-spacing: 2px; /* Межбуквенный интервал */
+  text-transform: uppercase; /* Заглавные буквы */
+  margin: 0; /* Убираем стандартные отступы */
+}
+/* Основной контейнер аккордеона */
 .accordion {
-  width: 300px;
-  margin: 0 auto;
-}
-
-.accordion-item {
-  border: 1px solid #ccc;
-  margin-bottom: 5px;
-}
-
-.accordion-button {
-  background-color: #f1f1f1;
-  border: none;
-  padding: 15px;
   width: 100%;
+  max-width: 700px; /* Ширина контейнера */
+  margin: 40px auto; /* Центрирование */
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Более глубокая тень */
+  padding: 15px;
+}
+
+/* Стили для каждой секции */
+.accordion-item {
+  margin: 0;
+  border-bottom: 2px solid #f0f0f0; /* Легкая линия между секциями */
+}
+
+/* Стили для кнопки аккордеона */
+.accordion-button {
+  background-color: #654f96; /* Синий фон */
+  color: white;
+  border: none;
+  padding: 20px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
   text-align: left;
   cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Плавное изменение */
+  
 }
 
-.accordion-button input[type="checkbox"] {
-  margin-right: 10px;
+/* Эффект при наведении на кнопку */
+.accordion-button:hover {
+  background-color: #503d79; /* Темный синий при наведении */
 }
 
-.accordion-content {
-  padding: 0 15px;
-  display: none;
-  background-color: #f9f9f9;
-}
-
+/* Стили для кнопки при фокусе */
 .accordion-button:focus {
-  outline: none;
+  outline: none; /* Убираем контур */
+  background-color: #3e2f5f; /* Еще темнее синий при фокусе */
 }
 
-/* Style to strike through text when checkbox is checked */
-.accordion-button.strikethrough {
-  text-decoration: line-through;
-  color: #888;
+/* Стили для содержимого аккордеона */
+.accordion-content {
+  display: none;
+  padding: 20px;
+  background-color: #f4f4f4; /* Светлый фон для содержимого */
+  color: #444; /* Темный текст */
+  font-size: 16px;
+  line-height: 1.6;
+  border-radius: 8px;
+  border-top: 1px solid #ddd;
+  animation: fadeIn 0.4s ease-out; /* Анимация появления */
 }
 
+/* Показываем содержимое, когда оно открыто */
 .accordion-content.show {
   display: block;
 }
+
+/* Стиль для зачеркивания текста в кнопке */
+.accordion-button.strikethrough {
+  text-decoration: line-through;
+  color: #b0bec5;
+  background-color: #90a4ae; /* Серый фон */
+  cursor: not-allowed; /* Убираем курсор */
+  opacity: 0.6; /* Прозрачность */
+}
+
+/* Стили для чекбокса */
+.section-checkbox {
+  width: 18px; /* Размер чекбокса */
+  height: 18px; /* Высота чекбокса */
+  margin-right: 10px; /* Отступ справа */
+  cursor: pointer; /* Указываем, что элемент кликабельный */
+  accent-color: #0277bd; /* Цвет чекбокса */
+  appearance: none; /* Убираем стандартный стиль чекбокса */
+  border: 2px solid #0277bd; /* Рамка чекбокса */
+  border-radius: 4px; /* Скругленные углы */
+  background-color: white; /* Белый фон */
+  transition: all 0.3s ease; /* Плавный переход */
+  vertical-align: bottom; /* Выравнивание по центру строки */
+}
+
+/* Эффект наведения */
+.section-checkbox:hover {
+  transform: scale(1.1); /* Легкое увеличение */
+  border-color: #015b8f; /* Темная рамка */
+}
+
+/* Состояние "отмечен" */
+.section-checkbox:checked {
+  background-color: #015b8f;
+  border-color: #015b8f;
+}
+
+.section-checkbox:checked::after {
+  content: '✔';
+  color: white;
+  display: block;
+  text-align: center;
+  line-height: 18px; /* Центровка галочки внутри чекбокса */
+  font-size: 14px;
+}
+
