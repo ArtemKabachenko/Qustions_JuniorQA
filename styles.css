@@ -1,0 +1,30 @@
+.accordion {
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .accordion-item {
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+  }
+  
+  .accordion-button {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .accordion-content {
+    padding: 0 15px;
+    display: none;
+    background-color: #f9f9f9;
+  }
+  
+  .accordion-button:focus {
+    outline: none;
+  }
+  
