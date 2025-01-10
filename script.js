@@ -1,11 +1,8 @@
-const accordionContainer = document.getElementById('accordion');
-
-// Функция для создания секции с уникальным названием и текстом
-function createSection(index, sectionTitle, contentText) {
+// Функция для создания секции
+function createSection(container, sectionData) {
   const accordionItem = document.createElement('div');
   accordionItem.classList.add('accordion-item');
   
-  // Создаем контейнер для чекбокса и названия
   const checkboxWrapper = document.createElement('div');
   checkboxWrapper.classList.add('checkbox-wrapper');
   
@@ -15,74 +12,129 @@ function createSection(index, sectionTitle, contentText) {
   
   const sectionName = document.createElement('span');
   sectionName.classList.add('section-name');
-  sectionName.innerText = sectionTitle;
+  sectionName.innerText = sectionData.title;
   
   checkboxWrapper.appendChild(checkbox);
   checkboxWrapper.appendChild(sectionName);
   
   const content = document.createElement('div');
   content.classList.add('accordion-content');
-  content.innerHTML = `<p>${contentText}</p>`;
+  content.innerHTML = `<p>${sectionData.content}</p>`;
   
   accordionItem.appendChild(checkboxWrapper);
   accordionItem.appendChild(content);
   
-  return accordionItem;
+  container.appendChild(accordionItem);
+
+  return { checkbox, content, sectionName };
 }
 
-// Пример секций с названиями и контентом
-const sections = [
-  { title: 'Що таке інтернет та як він працює?', content: 'Інтернет це глобальна мережа в якій всі пристрої з\'єднані між собою та мають свій унікальний ідентифікатор IP, та за допомогою протоколів ці пристрої можуть обмінюватись даними' },
-  { title: 'З чого складається URI?', content:'<ol>' + '<li>Протокол передачі даних https://</li>' + '<li>subdomain.domain.root_domain</li>' + '<li>port (http-80, https-443), але він не показується за замовченням</li>' + '<li>path - путь до конкретної сторінки або файлу на сайті</li>' + '<li>query param - фільтри, сортування, доп. параметри</li>' + '<li>anchor - якір, для переходу до певної частини сторінки</li>' + '</ol>' },
-  { title: 'Section 3: Features', content: 'This is the content of section 3.' },
-  { title: 'Section 4: Details', content: 'Content for section 4.' },
-  { title: 'Section 5: Final thoughts', content: 'Unique information for section 5.' },
-  { title: 'Section 6: Further Analysis', content: 'Deep dive into section 6.' },
-  { title: 'Section 7: Discussion', content: 'Content for section 7.' },
-  { title: 'Section 8: Questions', content: 'Content for section 8.' },
-  { title: 'Section 9: Answers', content: 'Content for section 9.' },
-  { title: 'Section 10: Conclusion', content: 'Content for section 10.' },
-];
-
-// Динамически создаем секции
-sections.forEach((sectionData, index) => {
-  const section = createSection(index, sectionData.title, sectionData.content);
-  accordionContainer.appendChild(section);
-});
-
-// Обработчики для чекбоксов и кнопок
-const checkboxes = document.querySelectorAll('.section-checkbox');
-const sectionNames = document.querySelectorAll('.section-name');
-const accordionContents = document.querySelectorAll('.accordion-content');
-
-// Обработчик для чекбоксов
-checkboxes.forEach((checkbox, index) => {
-  checkbox.addEventListener('change', () => {
-    const sectionName = sectionNames[index];
-    const content = accordionContents[index];
-
-    // Зачеркиваем название секции, если чекбокс отмечен
-    if (checkbox.checked) {
-      sectionName.classList.add('strikethrough');
-    } else {
-      sectionName.classList.remove('strikethrough');
+// Загружаем данные из файла data.json
+fetch('data.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.json();
+  })
+  .then(data => {
+    const accordion1Container = document.getElementById('accordion1');
+    const accordion2Container = document.getElementById('accordion2');
+    const accordion3Container = document.getElementById('accordion3');
+    const accordion4Container = document.getElementById('accordion4');
 
-    // Закрываем секцию при снятии чекбокса
-    content.classList.remove('show');
+    const firstSections = data.slice(0, 41);
+    const secondSections = data.slice(41, 100);
+    const thirdSections = data.slice(100, 120);
+    const fourthSections = data.slice(120);
+
+    const accordion1Items = createAccordionSections(accordion1Container, firstSections);
+    const accordion2Items = createAccordionSections(accordion2Container, secondSections);
+    const accordion3Items = createAccordionSections(accordion3Container, thirdSections);
+    const accordion4Items = createAccordionSections(accordion4Container, fourthSections);
+
+    initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items, ...accordion4Items]);
+  })
+  .catch(error => console.error('Error loading JSON:', error));
+
+// Функция для создания секций аккордеона
+function createAccordionSections(container, sections) {
+  return sections.map(sectionData => {
+    return createSection(container, sectionData);
   });
-});
+}
 
-// Обработчик для нажатия на название секции
-sectionNames.forEach((sectionName, index) => {
-  sectionName.addEventListener('click', () => {
-    const checkbox = checkboxes[index];
-    const content = accordionContents[index];
-
-    // Если чекбокс установлен, не открываем секцию
-    if (checkbox.checked) return;
-
-    // Переключаем видимость контента
-    content.classList.toggle('show');
+// Обработчики для чекбоксов и названий секций
+function initializeHandlers(items) {
+  document.addEventListener('change', (event) => {
+    if (event.target && event.target.classList.contains('section-checkbox')) {
+      const checkbox = event.target;
+      const sectionItem = items.find(item => item.checkbox === checkbox);
+      if (sectionItem) {
+        handleCheckboxChange(sectionItem);
+      }
+    }
   });
+
+  document.addEventListener('click', (event) => {
+    if (event.target && event.target.classList.contains('section-name')) {
+      const sectionName = event.target;
+      const sectionItem = items.find(item => item.sectionName === sectionName);
+      if (sectionItem) {
+        handleSectionNameClick(sectionItem);
+      }
+    }
+  });
+}
+
+// Обработчик для изменения состояния чекбокса
+function handleCheckboxChange({ checkbox, sectionName, content }) {
+  if (checkbox.checked) {
+    sectionName.classList.add('strikethrough');
+    content.classList.remove('show');  // Закрыть секцию
+  } else {
+    sectionName.classList.remove('strikethrough');
+    content.classList.add('show');  // Открыть секцию
+  }
+}
+
+// Обработчик для клика на название секции
+function handleSectionNameClick({ checkbox, content }) {
+  if (checkbox.checked) return;
+  content.classList.toggle('show');
+}
+
+// Подсветка текущего раздела
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".anchor-link a");
+
+  const removeActiveClasses = () => {
+    navLinks.forEach(link => link.classList.remove("active"));
+  };
+
+  const highlightCurrentSection = () => {
+    let currentSectionId = null;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSectionId = section.getAttribute("id");
+      }
+    });
+
+    removeActiveClasses();
+    if (currentSectionId) {
+      const activeLink = document.querySelector(`.anchor-link a[href="#${currentSectionId}"]`);
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
+    }
+  };
+
+  highlightCurrentSection();
+  window.addEventListener("scroll", highlightCurrentSection);
 });

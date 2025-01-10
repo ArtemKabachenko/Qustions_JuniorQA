@@ -8,7 +8,18 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
-
+h2 {
+  width: 100%;
+  max-width: 700px;
+  background-color: #654f96;
+  margin: 20px auto;
+  color: white;
+  padding: 6px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
 /* Основной контейнер аккордеона */
 .accordion {
   width: 100%;
@@ -44,8 +55,8 @@ header {
 
 /* Стили для чекбокса */
 .section-checkbox {
-  width: 18px;
-  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
   margin-right: 10px;
   cursor: pointer;
   accent-color: #0277bd;
@@ -70,7 +81,7 @@ header {
 }
 
 .section-checkbox:checked::after {
-  content: '✔';
+  /*content: '✔';*/
   color: white;
   display: block;
   text-align: center;
@@ -82,7 +93,7 @@ header {
 .accordion-content {
   display: none;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #f8f8f8;
   color: #444;
   font-size: 18px;
   line-height: 1.6;
@@ -102,3 +113,46 @@ header {
   cursor: not-allowed;
   opacity: 0.6;
 }
+/* Контейнер для трех колонок */
+.main-container {
+  display: grid; /* Используем сетку */
+  grid-template-columns: 20% 1fr 20%; /* Ширина колонок: навигация, текст, пустая */
+  gap: 20px; /* Промежуток между колонками */
+}
+
+/* Навигация */
+nav {
+  position: sticky; /* Липкая навигация */
+  top: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 100px;
+}
+
+/* Ссылки в навигации */
+.anchor-link a {
+  text-decoration: none;
+  color: #0277bd;
+  font-weight: bold;
+  display: block;
+  max-width: 150px;
+  padding: 10px 15px;
+  border: 2px solid #0277bd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.anchor-link a:hover {
+  background-color: #0277bd;
+  color: white;
+}
+/* Стиль для активной ссылки */
+.anchor-link a.active {
+  background-color: #0277bd;
+  color: white;
+  font-weight: bold;
+  border-color: #015b8f;
+}
+
