@@ -116,7 +116,7 @@ h2 {
 /* Контейнер для трех колонок */
 .main-container {
   display: grid; /* Используем сетку */
-  grid-template-columns: 230px 1fr 230px; /* Ширина колонок: навигация, текст, пустая */
+  grid-template-columns: 20% 1fr 20%; /* Ширина колонок: навигация, текст, пустая */
   gap: 20px; /* Промежуток между колонками */
 }
 
@@ -136,6 +136,7 @@ nav {
   color: #0277bd;
   font-weight: bold;
   display: block;
+  max-width: 150px;
   padding: 10px 15px;
   border: 2px solid #0277bd;
   border-radius: 5px;
@@ -146,5 +147,12 @@ nav {
 .anchor-link a:hover {
   background-color: #0277bd;
   color: white;
+}
+/* Стиль для активной ссылки */
+.anchor-link a.active {
+  background-color: #0277bd;
+  color: white;
+  font-weight: bold;
+  border-color: #015b8f;
 }
 

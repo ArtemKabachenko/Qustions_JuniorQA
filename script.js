@@ -3,7 +3,6 @@ function createSection(container, sectionData) {
   const accordionItem = document.createElement('div');
   accordionItem.classList.add('accordion-item');
   
-  // Создаем контейнер для чекбокса и названия
   const checkboxWrapper = document.createElement('div');
   checkboxWrapper.classList.add('checkbox-wrapper');
   
@@ -25,7 +24,6 @@ function createSection(container, sectionData) {
   accordionItem.appendChild(checkboxWrapper);
   accordionItem.appendChild(content);
   
-  // Добавляем секцию в переданный контейнер
   container.appendChild(accordionItem);
 
   return { checkbox, content, sectionName };
@@ -40,22 +38,18 @@ fetch('data.json')
     return response.json();
   })
   .then(data => {
-    // Получаем контейнеры для трех аккордеонов
     const accordion1Container = document.getElementById('accordion1');
     const accordion2Container = document.getElementById('accordion2');
     const accordion3Container = document.getElementById('accordion3');
 
-    // Разбиваем данные на три части
-    const firstSections = data.slice(0, 41);  // Первые 41 секция
-    const secondSections = data.slice(41, 50);  // Секции с 42 по 50
-    const thirdSections = data.slice(50);  // Оставшиеся секции
+    const firstSections = data.slice(0, 41);
+    const secondSections = data.slice(41, 50);
+    const thirdSections = data.slice(50);
 
-    // Создаем массивы для хранения элементов секций
     const accordion1Items = createAccordionSections(accordion1Container, firstSections);
     const accordion2Items = createAccordionSections(accordion2Container, secondSections);
     const accordion3Items = createAccordionSections(accordion3Container, thirdSections);
 
-    // Инициализация обработчиков после добавления секций
     initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items]);
   })
   .catch(error => console.error('Error loading JSON:', error));
@@ -69,7 +63,6 @@ function createAccordionSections(container, sections) {
 
 // Обработчики для чекбоксов и названий секций
 function initializeHandlers(items) {
-  // Делегирование событий для чекбоксов
   document.addEventListener('change', (event) => {
     if (event.target && event.target.classList.contains('section-checkbox')) {
       const checkbox = event.target;
@@ -80,7 +73,6 @@ function initializeHandlers(items) {
     }
   });
 
-  // Делегирование событий для названий секций
   document.addEventListener('click', (event) => {
     if (event.target && event.target.classList.contains('section-name')) {
       const sectionName = event.target;
@@ -105,9 +97,41 @@ function handleCheckboxChange({ checkbox, sectionName, content }) {
 
 // Обработчик для клика на название секции
 function handleSectionNameClick({ checkbox, content }) {
-  // Если чекбокс активен, не открываем/закрываем
   if (checkbox.checked) return;
-
-  // Открываем/закрываем секцию
   content.classList.toggle('show');
 }
+
+// Подсветка текущего раздела
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".anchor-link a");
+
+  const removeActiveClasses = () => {
+    navLinks.forEach(link => link.classList.remove("active"));
+  };
+
+  const highlightCurrentSection = () => {
+    let currentSectionId = null;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSectionId = section.getAttribute("id");
+      }
+    });
+
+    removeActiveClasses();
+    if (currentSectionId) {
+      const activeLink = document.querySelector(`.anchor-link a[href="#${currentSectionId}"]`);
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
+    }
+  };
+
+  highlightCurrentSection();
+  window.addEventListener("scroll", highlightCurrentSection);
+});
