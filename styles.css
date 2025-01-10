@@ -155,4 +155,20 @@ nav {
   font-weight: bold;
   border-color: #015b8f;
 }
+#openAllBtn {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  min-width: 183px;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#openAllBtn:hover {
+  background-color: #015b8f;
+}
 

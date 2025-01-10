@@ -1,3 +1,6 @@
+// Флаг для отслеживания состояния открытия секций
+let allSectionsOpen = false;
+
 // Функция для создания секции
 function createSection(container, sectionData) {
   const accordionItem = document.createElement('div');
@@ -54,6 +57,59 @@ fetch('data.json')
     const accordion4Items = createAccordionSections(accordion4Container, fourthSections);
 
     initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items, ...accordion4Items]);
+
+    // Добавляем обработчик для кнопки открытия/закрытия всех секций
+    const openAllBtn = document.getElementById('openAllBtn');
+    openAllBtn.addEventListener('click', () => {
+      const allContent = document.querySelectorAll('.accordion-content');
+      const allSectionNames = document.querySelectorAll('.section-name');
+      const allCheckboxes = document.querySelectorAll('.section-checkbox');
+
+      if (allSectionsOpen) {
+        // Если секции открыты, закрываем их
+        allContent.forEach(content => {
+          // Проверяем, активен ли чекбокс. Если активен, не закрываем секцию.
+          const checkbox = content.previousElementSibling.querySelector('.section-checkbox');
+          if (!checkbox.checked) {
+            content.classList.remove('show');
+          }
+        });
+
+        // Убираем "зачеркнутый" стиль с названий секций, если чекбокс не активен
+        allSectionNames.forEach((sectionName, index) => {
+          const checkbox = allCheckboxes[index];
+          if (!checkbox.checked) {
+            sectionName.classList.remove('strikethrough');
+          }
+        });
+
+        // Меняем текст кнопки
+        openAllBtn.innerText = 'Открыть все секции';
+      } else {
+        // Если секции закрыты, открываем их
+        allContent.forEach(content => {
+          // Проверяем, активен ли чекбокс. Если активен, не открываем секцию.
+          const checkbox = content.previousElementSibling.querySelector('.section-checkbox');
+          if (!checkbox.checked) {
+            content.classList.add('show');
+          }
+        });
+
+        // Убираем "зачеркнутый" стиль с названий секций, если чекбокс не активен
+        allSectionNames.forEach((sectionName, index) => {
+          const checkbox = allCheckboxes[index];
+          if (!checkbox.checked) {
+            sectionName.classList.remove('strikethrough');
+          }
+        });
+
+        // Меняем текст кнопки
+        openAllBtn.innerText = 'Закрыть все секции';
+      }
+
+      // Меняем флаг на противоположное значение
+      allSectionsOpen = !allSectionsOpen;
+    });
   })
   .catch(error => console.error('Error loading JSON:', error));
 
