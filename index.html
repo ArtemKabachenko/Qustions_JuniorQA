@@ -8,12 +8,36 @@
 </head>
 <body>
   <header><h1>Питання та відповіді на співбесіду</h1></header>
-  <h2>Інтернет</h2>
-  <div class="accordion" id="accordion1"></div>
-  <h2>Теорія тестування</h2>
-  <div class="accordion" id="accordion2"></div>
-  <h2>SQL, NoSQL</h2>
-  <div class="accordion" id="accordion3"></div>
+  
+  <div class="main-container">
+    <!-- Левая колонка: Навигация -->
+    <nav>
+      <div class="anchor-link"><a href="#internet">Інтернет</a></div>
+      <div class="anchor-link"><a href="#testing-theory">Теорія тестування</a></div>
+      <div class="anchor-link"><a href="#databases">SQL, NoSQL</a></div>
+    </nav>
+
+    <!-- Центральная колонка: Основной текст -->
+    <div class="content">
+      <section id="internet">
+        <h2>Інтернет</h2>
+        <div class="accordion" id="accordion1"></div>
+      </section>
+
+      <section id="testing-theory">
+        <h2>Теорія тестування</h2>
+        <div class="accordion" id="accordion2"></div>
+      </section>
+
+      <section id="databases">
+        <h2>SQL, NoSQL</h2>
+        <div class="accordion" id="accordion3"></div>
+      </section>
+    </div>
+
+    <!-- Правая колонка: Пустая -->
+    <div class="empty-column"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
