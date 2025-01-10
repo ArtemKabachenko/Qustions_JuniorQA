@@ -45,18 +45,21 @@ fetch('data.json')
     const accordion2Container = document.getElementById('accordion2');
     const accordion3Container = document.getElementById('accordion3');
     const accordion4Container = document.getElementById('accordion4');
+    const accordion5Container = document.getElementById('accordion5');
 
     const firstSections = data.slice(0, 41);
     const secondSections = data.slice(41, 100);
     const thirdSections = data.slice(100, 120);
-    const fourthSections = data.slice(120);
+    const fourthSections = data.slice(120, 130);
+    const fifthSections = data.slice(130);
 
     const accordion1Items = createAccordionSections(accordion1Container, firstSections);
     const accordion2Items = createAccordionSections(accordion2Container, secondSections);
     const accordion3Items = createAccordionSections(accordion3Container, thirdSections);
     const accordion4Items = createAccordionSections(accordion4Container, fourthSections);
+    const accordion5Items = createAccordionSections(accordion5Container, fifthSections);
 
-    initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items, ...accordion4Items]);
+    initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items, ...accordion4Items, ...accordion5Items]);
 
     // Добавляем обработчик для кнопки открытия/закрытия всех секций
     const openAllBtn = document.getElementById('openAllBtn');
