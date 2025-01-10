@@ -41,16 +41,19 @@ fetch('data.json')
     const accordion1Container = document.getElementById('accordion1');
     const accordion2Container = document.getElementById('accordion2');
     const accordion3Container = document.getElementById('accordion3');
+    const accordion4Container = document.getElementById('accordion4');
 
     const firstSections = data.slice(0, 41);
-    const secondSections = data.slice(41, 50);
-    const thirdSections = data.slice(50);
+    const secondSections = data.slice(41, 100);
+    const thirdSections = data.slice(100, 120);
+    const fourthSections = data.slice(120);
 
     const accordion1Items = createAccordionSections(accordion1Container, firstSections);
     const accordion2Items = createAccordionSections(accordion2Container, secondSections);
     const accordion3Items = createAccordionSections(accordion3Container, thirdSections);
+    const accordion4Items = createAccordionSections(accordion4Container, fourthSections);
 
-    initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items]);
+    initializeHandlers([...accordion1Items, ...accordion2Items, ...accordion3Items, ...accordion4Items]);
   })
   .catch(error => console.error('Error loading JSON:', error));
 
