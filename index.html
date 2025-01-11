@@ -20,6 +20,7 @@
       <div class="anchor-link"><a href="#postman">Postman</a></div>
       <div class="anchor-link"><a href="#hr-questions">Запитання HR</a></div>
       <button id="openAllBtn">Відкрити всі секції</button>
+      <button id="randomQuestionBtn">Випадкове запитання</button>
     </nav>
 
     <!-- main content -->
@@ -50,12 +51,17 @@
       </section>
     </div>
 
-    <!-- empty column -->
-    <div class="empty-column">
-      
+    <!-- Попап для случайного вопроса -->
+    <div id="popup" class="popup hidden">
+      <div class="popup-content">
+        <span id="closePopup" class="close">&times;</span>
+        <h3>Випадкове запитання</h3>
+        <p id="popupQuestion">Тут з'явиться випадкове питання</p>
+      </div>
     </div>
   </div>
-
+  
   <script src="script.js"></script>
+  <script src="popup.js"></script>
 </body>
 </html>
