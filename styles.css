@@ -179,7 +179,7 @@ nav {
   border: none;
   min-width: 183px;
   margin-top: 20px;
-  padding: 10px 18px;
+  padding: 10px 12px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -236,4 +236,20 @@ nav {
 
 .close:hover {
   color: red;
+}
+/* Стиль для кнопки "Следующий вопрос" */
+.next-question-btn {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.next-question-btn:hover {
+  background-color: #015b8f;
 }

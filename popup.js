@@ -6,6 +6,7 @@ const randomQuestionBtn = document.getElementById('randomQuestionBtn');
 const popup = document.getElementById('popup');
 const closePopup = document.getElementById('closePopup');
 const popupQuestion = document.getElementById('popupQuestion');
+const nextQuestionBtn = document.getElementById('nextQuestionBtn');
 
 // Функция для загрузки данных из data.json
 function loadQuestions() {
@@ -30,12 +31,19 @@ function getRandomQuestion() {
   return questionsData[randomIndex];
 }
 
+// Функция для отображения случайного вопроса
+function showRandomQuestion() {
+  if (questionsData.length > 0) {
+    const randomQuestion = getRandomQuestion();
+    popupQuestion.innerHTML = `<strong>Питання:</strong> ${randomQuestion.title}<br><strong>Відповідь:</strong> ${randomQuestion.content}`;
+  }
+}
+
 // Обработчик для открытия попапа
 randomQuestionBtn.addEventListener('click', () => {
   if (questionsData.length > 0) {
     popup.classList.remove('hidden'); // Открываем попап
-    const randomQuestion = getRandomQuestion();
-    popupQuestion.innerHTML = `<strong>Питання:</strong> ${randomQuestion.title}<br><br><strong>Відповідь:</strong> ${randomQuestion.content}`; // Показываем вопрос и ответ
+    showRandomQuestion(); // Показываем случайный вопрос
   }
 });
 
@@ -49,6 +57,11 @@ popup.addEventListener('click', (event) => {
   if (event.target === popup) {
     popup.classList.add('hidden');
   }
+});
+
+// Обработчик для кнопки "Следующий вопрос"
+nextQuestionBtn.addEventListener('click', () => {
+  showRandomQuestion(); // Показываем новый случайный вопрос
 });
 
 // Загружаем данные при загрузке страницы
