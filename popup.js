@@ -5,7 +5,8 @@ let questionsData = [];
 const randomQuestionBtn = document.getElementById('randomQuestionBtn');
 const popup = document.getElementById('popup');
 const closePopup = document.getElementById('closePopup');
-const popupQuestion = document.getElementById('popupQuestion');
+const popupQuestionTitle = document.getElementById('popupQuestionTitle');
+const popupAnswer = document.getElementById('popupAnswer');
 const nextQuestionBtn = document.getElementById('nextQuestionBtn');
 
 // Функция для загрузки данных из data.json
@@ -35,7 +36,11 @@ function getRandomQuestion() {
 function showRandomQuestion() {
   if (questionsData.length > 0) {
     const randomQuestion = getRandomQuestion();
-    popupQuestion.innerHTML = `<strong>Питання:</strong> ${randomQuestion.title}<br><strong>Відповідь:</strong> ${randomQuestion.content}`;
+    popupQuestionTitle.innerHTML = randomQuestion.title;
+    popupAnswer.innerHTML = `<p>${randomQuestion.content}</p>`;
+    
+    // Скрываем ответ, когда открывается попап
+    popupAnswer.classList.remove('show');
   }
 }
 
@@ -62,6 +67,11 @@ popup.addEventListener('click', (event) => {
 // Обработчик для кнопки "Следующий вопрос"
 nextQuestionBtn.addEventListener('click', () => {
   showRandomQuestion(); // Показываем новый случайный вопрос
+});
+
+// Обработчик для клика по заголовку аккордеона (блок теперь кликабельный)
+document.querySelector('.accordion-header').addEventListener('click', () => {
+  popupAnswer.classList.toggle('show'); // Показываем или скрываем ответ
 });
 
 // Загружаем данные при загрузке страницы

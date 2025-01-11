@@ -50,15 +50,23 @@
         <div class="accordion" id="accordion5"></div>
       </section>
     </div>
-
-    <!-- Попап для случайного вопроса -->
-    <div id="popup" class="popup hidden">
-      <div class="popup-content">
-        <span id="closePopup" class="close">&times;</span>
-        <h3>Випадкове запитання</h3>
-        <p id="popupQuestion">Тут з'явиться випадкове питання</p>
-        <button id="nextQuestionBtn" class="next-question-btn">Наступне питання</button>
+  </div>
+   <!-- Попап для случайного вопроса -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span id="closePopup" class="close">&times;</span>
+      <h3>Випадкове запитання</h3>
+      <div id="accordionWrapper" class="accordion-popup">
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <span id="popupQuestionTitle">Тут з'явиться випадкове питання</span>
+          </div>
+          <div id="popupAnswer" class="accordion-content">
+            <p>Тут з'явиться відповідь на питання</p>
+          </div>
+        </div>
       </div>
+      <button id="nextQuestionBtn" class="next-question-btn">Наступне питання</button>
     </div>
   </div>
 

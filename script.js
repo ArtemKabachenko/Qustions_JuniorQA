@@ -71,19 +71,7 @@ fetch('data.json')
       if (allSectionsOpen) {
         // Если секции открыты, закрываем их
         allContent.forEach(content => {
-          // Проверяем, активен ли чекбокс. Если активен, не закрываем секцию.
-          const checkbox = content.previousElementSibling.querySelector('.section-checkbox');
-          if (!checkbox.checked) {
-            content.classList.remove('show');
-          }
-        });
-
-        // Убираем "зачеркнутый" стиль с названий секций, если чекбокс не активен
-        allSectionNames.forEach((sectionName, index) => {
-          const checkbox = allCheckboxes[index];
-          if (!checkbox.checked) {
-            sectionName.classList.remove('strikethrough');
-          }
+          content.classList.remove('show');
         });
 
         // Меняем текст кнопки
@@ -91,19 +79,7 @@ fetch('data.json')
       } else {
         // Если секции закрыты, открываем их
         allContent.forEach(content => {
-          // Проверяем, активен ли чекбокс. Если активен, не открываем секцию.
-          const checkbox = content.previousElementSibling.querySelector('.section-checkbox');
-          if (!checkbox.checked) {
-            content.classList.add('show');
-          }
-        });
-
-        // Убираем "зачеркнутый" стиль с названий секций, если чекбокс не активен
-        allSectionNames.forEach((sectionName, index) => {
-          const checkbox = allCheckboxes[index];
-          if (!checkbox.checked) {
-            sectionName.classList.remove('strikethrough');
-          }
+          content.classList.add('show');
         });
 
         // Меняем текст кнопки
@@ -162,38 +138,3 @@ function handleSectionNameClick({ checkbox, content }) {
   if (checkbox.checked) return;
   content.classList.toggle('show');
 }
-
-// Подсветка текущего раздела
-document.addEventListener("DOMContentLoaded", () => {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".anchor-link a");
-
-  const removeActiveClasses = () => {
-    navLinks.forEach(link => link.classList.remove("active"));
-  };
-
-  const highlightCurrentSection = () => {
-    let currentSectionId = null;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        currentSectionId = section.getAttribute("id");
-      }
-    });
-
-    removeActiveClasses();
-    if (currentSectionId) {
-      const activeLink = document.querySelector(`.anchor-link a[href="#${currentSectionId}"]`);
-      if (activeLink) {
-        activeLink.classList.add("active");
-      }
-    }
-  };
-
-  highlightCurrentSection();
-  window.addEventListener("scroll", highlightCurrentSection);
-});
