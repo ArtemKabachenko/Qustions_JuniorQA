@@ -87,7 +87,7 @@ fetch('data.json')
         });
 
         // Меняем текст кнопки
-        openAllBtn.innerText = 'Открыть все секции';
+        openAllBtn.innerText = 'Відкрити всі секції';
       } else {
         // Если секции закрыты, открываем их
         allContent.forEach(content => {
@@ -107,7 +107,7 @@ fetch('data.json')
         });
 
         // Меняем текст кнопки
-        openAllBtn.innerText = 'Закрыть все секции';
+        openAllBtn.innerText = 'Закрити всі секції';
       }
 
       // Меняем флаг на противоположное значение
