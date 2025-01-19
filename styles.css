@@ -128,6 +128,7 @@ nav {
   padding: 20px;
   border-radius: 10px;
   max-height: 100px;
+  max-width: 200px;
 }
 
 /* Ссылки в навигации */
@@ -172,3 +173,176 @@ nav {
   background-color: #015b8f;
 }
 
+/* Стили для кнопки случайного вопроса */
+#randomQuestionBtn {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  min-width: 183px;
+  margin-top: 20px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#randomQuestionBtn:hover {
+  background-color: #015b8f;
+}
+
+/* Стили для попапа */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Стили для контента попапа */
+.popup-content {
+  background: white;
+  padding: 20px;
+  min-width: 400px;
+  min-height: 200px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 90%;
+}
+
+/* Крестик для закрытия попапа */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+.close:hover {
+  color: red;
+}
+/* Стиль для кнопки "Следующий вопрос" */
+.next-question-btn {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.next-question-btn:hover {
+  background-color: #015b8f;
+}
+/* Стили для аккордеона */
+.accordion-popup {
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto;
+  font-size: 18px;
+  background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 55px;
+  margin-top: 35px;
+}
+
+/* Стили для каждой секции аккордеона */
+.accordion-item {
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Стили для заголовка аккордеона */
+.accordion-header {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #0277bd;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Эффект наведения на заголовок */
+.accordion-header:hover {
+  background-color: #015b8f;
+}
+
+/* Стили для содержимого аккордеона */
+.accordion-content {
+  display: none;
+  padding: 15px;
+  background-color: #f8f8f8;
+  color: #444;
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
+  text-align: left;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* Показываем содержимое аккордеона, когда оно открыто */
+.accordion-content.show {
+  display: block;
+}
+
+/* Стили для кнопки "Следующий вопрос" */
+.next-question-btn {
+  position: absolute; /* Абсолютное позиционирование для кнопки */
+  bottom: 20px; /* Отступ от нижней грани попапа */
+  left: 50%; /* Центрируем кнопку по горизонтали */
+  transform: translateX(-50%); /* Выравнивание по центру */
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.next-question-btn:hover {
+  background-color: #015b8f;
+}
+/* Стиль для кнопки "Почати заново" */
+.reset-button {
+  background-color: #ff6347; /* Красный цвет */
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #ff4500; /* Темнее при наведении */
+}
