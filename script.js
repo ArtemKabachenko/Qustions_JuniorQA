@@ -47,11 +47,11 @@ fetch('data.json')
     const accordion4Container = document.getElementById('accordion4');
     const accordion5Container = document.getElementById('accordion5');
 
-    const firstSections = data.slice(0, 41);
-    const secondSections = data.slice(41, 100);
-    const thirdSections = data.slice(100, 120);
-    const fourthSections = data.slice(120, 130);
-    const fifthSections = data.slice(130);
+    const firstSections = data.slice(0, 46);
+    const secondSections = data.slice(46, 105);
+    const thirdSections = data.slice(105, 125);
+    const fourthSections = data.slice(125, 135);
+    const fifthSections = data.slice(135);
 
     const accordion1Items = createAccordionSections(accordion1Container, firstSections);
     const accordion2Items = createAccordionSections(accordion2Container, secondSections);
