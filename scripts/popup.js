@@ -1,5 +1,6 @@
 // Массив с вопросами и ответами
 let questionsData = [];
+let shownQuestions = []; // Массив для хранения показанных вопросов
 
 // Ссылки на элементы попапа и кнопки
 const randomQuestionBtn = document.getElementById('randomQuestionBtn');
@@ -26,22 +27,47 @@ function loadQuestions() {
     });
 }
 
-// Функция для получения случайного вопроса
+// Функция для получения случайного вопроса, который ещё не показывался
 function getRandomQuestion() {
-  const randomIndex = Math.floor(Math.random() * questionsData.length);
-  return questionsData[randomIndex];
+  // Фильтруем вопросы, которые ещё не показывались
+  const remainingQuestions = questionsData.filter((question, index) => !shownQuestions.includes(index));
+  
+  // Если есть оставшиеся вопросы, выбираем случайный
+  if (remainingQuestions.length > 0) {
+    const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+    const selectedQuestion = remainingQuestions[randomIndex];
+    shownQuestions.push(questionsData.indexOf(selectedQuestion)); // Добавляем индекс в массив показанных
+    return selectedQuestion;
+  } else {
+    // Если все вопросы были показаны, сбрасываем массив и показываем все заново
+    return null; // Возвращаем null, чтобы показать сообщение о завершении
+  }
 }
 
 // Функция для отображения случайного вопроса
 function showRandomQuestion() {
-  if (questionsData.length > 0) {
-    const randomQuestion = getRandomQuestion();
+  const randomQuestion = getRandomQuestion();
+  
+  if (randomQuestion) {
     popupQuestionTitle.innerHTML = randomQuestion.title;
     popupAnswer.innerHTML = `<p>${randomQuestion.content}</p>`;
     
     // Скрываем ответ, когда открывается попап
     popupAnswer.classList.remove('show');
+    nextQuestionBtn.textContent = "Наступне питання"; // Вернем текст кнопки в изначальное состояние
+    nextQuestionBtn.classList.remove('reset-button'); // Убираем стиль кнопки "Почати заново"
+  } else {
+    // Показать сообщение, что все вопросы пройдены
+    showAllQuestionsCompleted();
   }
+}
+
+// Функция для отображения сообщения о том, что все вопросы пройдены
+function showAllQuestionsCompleted() {
+  popupQuestionTitle.innerHTML = "Ви пройшли всі питання!";
+  popupAnswer.innerHTML = ""; // Скрываем ответ
+  nextQuestionBtn.textContent = "Почати заново"; // Меняем текст кнопки
+  nextQuestionBtn.classList.add('reset-button'); // Добавляем стиль кнопки "Почати заново"
 }
 
 // Обработчик для открытия попапа
@@ -66,11 +92,18 @@ popup.addEventListener('click', (event) => {
 
 // Обработчик для кнопки "Следующий вопрос"
 nextQuestionBtn.addEventListener('click', () => {
-  showRandomQuestion(); // Показываем новый случайный вопрос
+  if (nextQuestionBtn.textContent === "Почати заново") {
+    shownQuestions = []; // Очищаем массив с показанными вопросами
+    showRandomQuestion(); // Начинаем с первого вопроса
+    nextQuestionBtn.textContent = "Наступне питання"; // Возвращаем текст кнопки
+    nextQuestionBtn.classList.remove('reset-button'); // Убираем стиль кнопки "Почати заново"
+  } else {
+    showRandomQuestion(); // Показываем новый случайный вопрос
+  }
 });
 
-// Обработчик для клика по заголовку аккордеона (блок теперь кликабельный)
-document.querySelector('.accordion-header').addEventListener('click', () => {
+// Обработчик для раскрытия/сокрытия ответа на весь блок вопроса
+popupQuestionTitle.parentElement.addEventListener('click', () => {
   popupAnswer.classList.toggle('show'); // Показываем или скрываем ответ
 });
 

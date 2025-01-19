@@ -332,3 +332,17 @@ nav {
 .next-question-btn:hover {
   background-color: #015b8f;
 }
+/* Стиль для кнопки "Почати заново" */
+.reset-button {
+  background-color: #ff6347; /* Красный цвет */
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #ff4500; /* Темнее при наведении */
+}

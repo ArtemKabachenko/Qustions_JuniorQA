@@ -65,8 +65,6 @@ fetch('data.json')
     const openAllBtn = document.getElementById('openAllBtn');
     openAllBtn.addEventListener('click', () => {
       const allContent = document.querySelectorAll('.accordion-content');
-      const allSectionNames = document.querySelectorAll('.section-name');
-      const allCheckboxes = document.querySelectorAll('.section-checkbox');
 
       if (allSectionsOpen) {
         // Если секции открыты, закрываем их
