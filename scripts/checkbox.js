@@ -1,4 +1,4 @@
-// Обработчики для чекбоксов и названий секций
+// Handlers for checkboxes and section names
 function initializeHandlers(items) {
     document.addEventListener('change', (event) => {
       if (event.target && event.target.classList.contains('section-checkbox')) {
@@ -21,14 +21,14 @@ function initializeHandlers(items) {
     });
   }
   
-  // Обработчик для изменения состояния чекбокса
+  // Handler for checkbox state change
   function handleCheckboxChange({ checkbox, sectionName, content }) {
     if (checkbox.checked) {
       sectionName.classList.add('strikethrough');
-      content.classList.remove('show');  // Закрыть секцию
+      content.classList.remove('show');  // Close section
     } else {
       sectionName.classList.remove('strikethrough');
-      content.classList.add('show');  // Открыть секцию
+      content.classList.add('show');  // Open section
     }
   }
   

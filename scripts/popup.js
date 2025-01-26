@@ -1,8 +1,7 @@
-// Массив с вопросами и ответами
-let questionsData = [];
-let shownQuestions = []; // Массив для хранения показанных вопросов
+let questionsData = []; // Array to store questions from data.json 
+let shownQuestions = []; // Array to store shown questions
 
-// Ссылки на элементы попапа и кнопки
+// References to popup elements and buttons
 const randomQuestionBtn = document.getElementById('randomQuestionBtn');
 const popup = document.getElementById('popup');
 const closePopup = document.getElementById('closePopup');
@@ -10,12 +9,12 @@ const popupQuestionTitle = document.getElementById('popupQuestionTitle');
 const popupAnswer = document.getElementById('popupAnswer');
 const nextQuestionBtn = document.getElementById('nextQuestionBtn');
 
-// Функция для загрузки данных из data.json
+// Function to load data from data.json
 function loadQuestions() {
   fetch('data.json')
     .then(response => {
       if (!response.ok) {
-        throw new Error('Не удалось загрузить данные.');
+        throw new Error('Failed to load data.');
       }
       return response.json();
     })
@@ -23,28 +22,28 @@ function loadQuestions() {
       questionsData = data;
     })
     .catch(error => {
-      console.error('Ошибка при загрузке данных:', error);
+      console.error('Error loading data', error);
     });
 }
 
-// Функция для получения случайного вопроса, который ещё не показывался
+// Function to get a random question that hasn't been shown yet
 function getRandomQuestion() {
-  // Фильтруем вопросы, которые ещё не показывались
+  // Filter questions that have not been shown yet
   const remainingQuestions = questionsData.filter((question, index) => !shownQuestions.includes(index));
   
-  // Если есть оставшиеся вопросы, выбираем случайный
+  // If there are remaining questions, select a random one
   if (remainingQuestions.length > 0) {
     const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
     const selectedQuestion = remainingQuestions[randomIndex];
-    shownQuestions.push(questionsData.indexOf(selectedQuestion)); // Добавляем индекс в массив показанных
+    shownQuestions.push(questionsData.indexOf(selectedQuestion)); // Add the index of the shown question to the array
     return selectedQuestion;
   } else {
-    // Если все вопросы были показаны, сбрасываем массив и показываем все заново
-    return null; // Возвращаем null, чтобы показать сообщение о завершении
+    // If all questions have been shown, return null
+    return null; 
   }
 }
 
-// Функция для отображения случайного вопроса
+// Function to display a random question
 function showRandomQuestion() {
   const randomQuestion = getRandomQuestion();
   
@@ -52,60 +51,60 @@ function showRandomQuestion() {
     popupQuestionTitle.innerHTML = randomQuestion.title;
     popupAnswer.innerHTML = `<p>${randomQuestion.content}</p>`;
     
-    // Скрываем ответ, когда открывается попап
+    // Hide the answer when the popup opens
     popupAnswer.classList.remove('show');
-    nextQuestionBtn.textContent = "Наступне питання"; // Вернем текст кнопки в изначальное состояние
-    nextQuestionBtn.classList.remove('reset-button'); // Убираем стиль кнопки "Почати заново"
+    nextQuestionBtn.textContent = "Наступне питання"; // Change the button text
+    nextQuestionBtn.classList.remove('reset-button'); // Remove the "Start Over" button style
   } else {
-    // Показать сообщение, что все вопросы пройдены
+    // Show a message that all questions have been completed
     showAllQuestionsCompleted();
   }
 }
 
-// Функция для отображения сообщения о том, что все вопросы пройдены
+// Function to display a message that all questions have been completed
 function showAllQuestionsCompleted() {
-  popupQuestionTitle.innerHTML = "Ви пройшли всі питання!";
-  popupAnswer.innerHTML = ""; // Скрываем ответ
-  nextQuestionBtn.textContent = "Почати заново"; // Меняем текст кнопки
-  nextQuestionBtn.classList.add('reset-button'); // Добавляем стиль кнопки "Почати заново"
+  popupQuestionTitle.innerHTML = "Вау!!! Ви пройшли всі питання!";
+  popupAnswer.innerHTML = ""; // Clear the answer
+  nextQuestionBtn.textContent = "Почати заново"; // Change the button text
+  nextQuestionBtn.classList.add('reset-button'); // Add the "Start Over" button style
 }
 
-// Обработчик для открытия попапа
+// Handler for opening the popup
 randomQuestionBtn.addEventListener('click', () => {
   if (questionsData.length > 0) {
-    popup.classList.remove('hidden'); // Открываем попап
-    showRandomQuestion(); // Показываем случайный вопрос
+    popup.classList.remove('hidden'); // Open the popup
+    showRandomQuestion(); // Show a random question
   }
 });
 
-// Обработчик для закрытия попапа
+// Handler for closing the popup
 closePopup.addEventListener('click', () => {
-  popup.classList.add('hidden'); // Закрываем попап
+  popup.classList.add('hidden'); // Close the popup
 });
 
-// Закрытие попапа при клике на затемненный фон
+// Close the popup when clicking on the darkened background
 popup.addEventListener('click', (event) => {
   if (event.target === popup) {
-    popup.classList.add('hidden');
+    popup.classList.add('hidden'); // Close the popup
   }
 });
 
-// Обработчик для кнопки "Следующий вопрос"
+// Handler for the "Next Question" button
 nextQuestionBtn.addEventListener('click', () => {
   if (nextQuestionBtn.textContent === "Почати заново") {
-    shownQuestions = []; // Очищаем массив с показанными вопросами
-    showRandomQuestion(); // Начинаем с первого вопроса
-    nextQuestionBtn.textContent = "Наступне питання"; // Возвращаем текст кнопки
-    nextQuestionBtn.classList.remove('reset-button'); // Убираем стиль кнопки "Почати заново"
+    shownQuestions = []; // Reset the array of shown questions
+    showRandomQuestion();  // Show a new random question
+    nextQuestionBtn.textContent = "Наступне питання"; // Change the button text back   
+    nextQuestionBtn.classList.remove('reset-button'); // Remove the "Start Over" button style  
   } else {
-    showRandomQuestion(); // Показываем новый случайный вопрос
+    showRandomQuestion(); // Show a new random question
   }
 });
 
-// Обработчик для раскрытия/сокрытия ответа на весь блок вопроса
+// Handler for toggling the answer visibility for the entire question block
 popupQuestionTitle.parentElement.addEventListener('click', () => {
-  popupAnswer.classList.toggle('show'); // Показываем или скрываем ответ
+  popupAnswer.classList.toggle('show'); // Toggle the visibility of the answer
 });
 
-// Загружаем данные при загрузке страницы
+// Load data when the page loads
 window.addEventListener('DOMContentLoaded', loadQuestions);
